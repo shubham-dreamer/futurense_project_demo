@@ -1,0 +1,93 @@
+create database university; 
+
+use university;
+ 
+CREATE TABLE stud (
+    student_id INT PRIMARY KEY,
+    student_student_name VARCHAR(50),
+    subject_code VARCHAR(5),
+    department VARCHAR(20),
+    marks INT
+);
+
+-----------------------------------------------------------------------------
+alter table stud add column language varchar(10) Not null; 
+-- alter table stud restudent_name column language to lang; 
+alter table stud modify column lang varchar(11); 
+alter table stud change column lang l varchar(12) After student_id; 
+alter table stud drop column l; 
+-----------------------------------------------------------------------------
+des stud;
+
+SELECT  * FROM stud;
+-----------------------------------------------------------------------------
+
+-- INSERT
+INSERT INTO stud(student_id, student_student_name, subject_code, department, marks) VALUES
+('1', 'shubham', 'AFG', 'ece', '178'),
+('2', 'jatin', 'AFG', 'eee', '223'),
+('3', 'prince', 'AFG', 'cse', '186'),
+('4', 'aman', 'AFG', 'mech', '127'),
+('5', 'prithvi', 'NLD', 'civil', '210'), 
+('6', 'aman', 'NLD', 'civil', '120');
+
+---------------------------------------------------------------------------------
+UPDATE stud
+SET 
+    student_student_name = 'prithvi',
+    marks = 210
+WHERE
+    marks = 120;
+---------------------------------------------------------------------------------
+DELETE FROM stud 
+WHERE
+    student_student_name = 'aman';
+---------------------------------------------------------------------------------
+
+select * from stud;
+
+select distinct student_name from stud; 
+
+select student_student_name from stud
+where student_name is null; 
+
+select student_student_name, department from stud 
+where subject_code="AFG" and population > 223; 
+
+select student_student_name, subject_code from stud 
+where subject_code="AFG" or subject_code="IND"; 
+
+select student_name, subject_code from stud 
+where subject_code="AFG" and subject_code in("IND", "USA", "AFG"); 
+
+select student_name, subject_code from stud 
+where subject_code like "%d"; 
+
+select student_name, subject_code from stud 
+where subject_code like "I%"; 
+
+select student_name, subject_code from stud 
+where subject_code like "I_N"; 
+
+select student_name, subject_code from stud 
+where subject_code like 'I[N]D'; 
+
+select student_name, subject_code, COUNT(department) as coutn from stud 
+group by subject_code;  
+
+select student_name, subject_code, COUNT(department) as coutn from stud 
+group by subject_code
+order by coutn DESC;
+
+select student_name, subject_code, SUM(marks) as mark from stud 
+group by subject_code
+order by mark DESC; 
+
+select student_name, subject_code, District, SUM(marks) as mark from stud 
+group by subject_code, department
+order by mark DESC; 
+
+select student_name, subject_code, District, COUNT(marks) as mark from stud 
+group by subject_code, department
+order by student_name, department DESC; 
+
