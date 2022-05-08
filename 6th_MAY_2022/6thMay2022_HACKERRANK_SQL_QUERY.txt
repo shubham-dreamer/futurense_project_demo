@@ -1,0 +1,59 @@
+Exists/not exist:
+
+here,working is different like outer query will run every row and check whether it meets the condition
+of inner query or not. As inner query returns only TRUE OR FALSE if it fufills or not fulfill the condition
+respectively.
+If FALSE is returned then that row will not get printed in the result.
+
+
+COUNT:
+SELECT COUNT(CITY)-COUNT(DISTINCT(CITY)) FROM STATION;
+
+q2) Query the two cities in STATION with the shortest and longest CITY names, as well 
+as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city,
+ choose the one that comes first when ordered alphabetically.
+The STATION table is described as follows:
+
+ANSWER : 
+SELECT TOP 1  CITY,LEN(CITY) FROM STATION
+WHERE LEN(CITY)=
+(SELECT MIN(LEN(CITY)) FROM STATION)
+ORDER BY CITY ASC;
+
+
+SELECT TOP 1 CITY,LEN(CITY) FROM STATION
+WHERE LEN(CITY)=
+(SELECT MAX(LEN(CITY)) FROM STATION)
+ORDER BY CITY ASC;
+
+
+q3)Query the list of CITY names starting with vowels (i.e., a, e, i, o, or u) from STATION. 
+Your result cannot contain duplicates.
+
+ANswer:
+SELECT DISTINCT(CITY) FROM STATION 
+WHERE CITY LIKE 'a%' OR
+CITY LIKE 'e%' OR
+CITY LIKE 'i%' OR
+CITY LIKE 'o%' OR
+CITY LIKE 'u%';
+
+q4)Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION.
+ Your result cannot contain duplicates.
+Answer: 
+SELECT DISTINCT(CITY) FROM STATION 
+WHERE CITY LIKE '%a' OR
+CITY LIKE '%e' OR
+CITY LIKE '%i' OR
+CITY LIKE '%o' OR
+CITY LIKE '%u';
+
+
+Q5)Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+Answer: 
+SELECT DISTINCT(CITY) FROM STATION
+WHERE
+UPPER(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ('A','E','I','O','U')
+AND 
+LOWER(SUBSTR(CITY,LENGTH(CITY),1)) NOT IN ('a','e','i','o','u')
+ORDER BY CITY;
